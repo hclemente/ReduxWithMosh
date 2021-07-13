@@ -1,19 +1,23 @@
-import { compose, pipe} from 'lodash/fp';
+import store from './store';
 
-let input = "  Javascript  ";
-let output = "<div>" + input.trim() + "</div";
+const unsubscribe = store.subscribe(() => {
+  console.log("Store.changed!", store.getState());
+})
 
-const trim = str => str.trim();
-//const wrapInDiv = str => `<div>${str}</div>`;
-const wrap = type => str => `<${type}>${str}</${type}>`;
-const toLowerCase = str => str.toLowerCase();
+store.dispatch({
+  type: "bugAdded",
+  payload: {
+    description: "Bug1"
+  }
+});
 
-const transform = pipe(trim, toLowerCase, wrap("div"));
+unsubscribe();
 
-console.log(transform(input))
+store.dispatch({
+  type: "bugRemoved",
+  payload: {
+    id: 1
+  }
+});
 
-//const result = wrapInDiv(toLowerCase(trim(input)));
-
-
-
-
+console.log(store.getState());
