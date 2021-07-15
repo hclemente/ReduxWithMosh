@@ -1,23 +1,15 @@
-import store from './store';
+import configureStore from './store/configureStore';
+import * as actions from './store/bugs';
 
-const unsubscribe = store.subscribe(() => {
-  console.log("Store.changed!", store.getState());
+const store = configureStore();
+
+store.subscribe(() => {
+  console.log("Store changed!")
 })
 
-store.dispatch({
-  type: "bugAdded",
-  payload: {
-    description: "Bug1"
-  }
-});
+store.dispatch(actions.bugAdded({ description: "Bug 1"}));
+store.dispatch(actions.bugAdded({ description: "Bug 2"}));
+store.dispatch(actions.bugAdded({ description: "Bug 3"}));
+store.dispatch(actions.bugResolved({id: 1}));
 
-unsubscribe();
-
-store.dispatch({
-  type: "bugRemoved",
-  payload: {
-    id: 1
-  }
-});
-
-console.log(store.getState());
+console.log(store.getState())
