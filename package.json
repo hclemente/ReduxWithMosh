@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.2.5",
+    "axios": "^0.19.2",
     "immer": "^9.0.5",
     "immutable": "*",
     "lodash": "^4.17.21",

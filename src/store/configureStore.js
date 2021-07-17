@@ -1,13 +1,25 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import reducer from './reducer';
+import logger from './middleware/logger';
+// import func from './middleware/func'
 // import { devToolsEnhancer } from 'redux-devtools-extension';
 // import { createStore } from 'redux';
-
+import toast from './middleware/toast';
+import api from './middleware/api';
 
 
 
 export default function configureAppStore () {
-  return configureStore({ reducer })
+  return configureStore({
+    reducer,
+    middleware: [
+      ...getDefaultMiddleware(),
+      logger({ destination: "console"}),
+      toast,
+      api
+      // func
+    ]
+  })
 };
 
 
